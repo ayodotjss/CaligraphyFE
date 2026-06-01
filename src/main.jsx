@@ -5,10 +5,18 @@ import "./styles.css";
 const rootElement = document.getElementById("root");
 
 window.addEventListener("error", (event) => {
+  if (isBenignResizeObserverError(event.message)) {
+    event.preventDefault();
+    return;
+  }
   showBootError(event.error || event.message);
 });
 
 window.addEventListener("unhandledrejection", (event) => {
+  if (isBenignResizeObserverError(event.reason?.message || String(event.reason || ""))) {
+    event.preventDefault();
+    return;
+  }
   showBootError(event.reason);
 });
 
@@ -42,4 +50,13 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function isBenignResizeObserverError(message) {
+  const lower = message.toLowerCase();
+  return (
+    lower.includes("resizeobserver loop") ||
+    lower.includes("resize observer loop") ||
+    lower.includes("undelivered notifications")
+  );
 }

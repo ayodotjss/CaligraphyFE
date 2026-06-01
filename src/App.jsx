@@ -174,6 +174,9 @@ class AppShell extends Component {
                   <Price label="Wallet balance" value={mint.walletBalance} />
                   <Price label="Mint payment" value={mint.mintPrice} />
                 </div>
+                <p className="fixed-price-note">
+                  Mint price is fixed. You pay the same amount whether the die rolls 1 or 6.
+                </p>
                 <button
                   className="primary-button"
                   disabled={mint.isBusy || mint.primaryState === "unconfigured" || mint.primaryState === "minted" || !mint.hasWallet}
