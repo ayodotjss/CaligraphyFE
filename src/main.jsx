@@ -5,7 +5,7 @@ import "./styles.css";
 const rootElement = document.getElementById("root");
 
 window.addEventListener("error", (event) => {
-  if (isBenignResizeObserverError(event.message)) {
+  if (isIgnoredRuntimeNoise(event.message)) {
     event.preventDefault();
     return;
   }
@@ -13,7 +13,7 @@ window.addEventListener("error", (event) => {
 });
 
 window.addEventListener("unhandledrejection", (event) => {
-  if (isBenignResizeObserverError(event.reason?.message || String(event.reason || ""))) {
+  if (isIgnoredRuntimeNoise(event.reason?.message || String(event.reason || ""))) {
     event.preventDefault();
     return;
   }
@@ -52,11 +52,13 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function isBenignResizeObserverError(message) {
+function isIgnoredRuntimeNoise(message) {
   const lower = message.toLowerCase();
   return (
     lower.includes("resizeobserver loop") ||
     lower.includes("resize observer loop") ||
-    lower.includes("undelivered notifications")
+    lower.includes("undelivered notifications") ||
+    lower.includes("not found rainbowkit") ||
+    lower.includes("rainbowkit")
   );
 }

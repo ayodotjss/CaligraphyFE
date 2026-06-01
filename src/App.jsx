@@ -250,8 +250,14 @@ function WalletModal({ mint, onClose, onConnect, onCopy, open }) {
   return (
     <AnimatePresence>
       {open ? (
-        <motion.div animate={{ opacity: 1 }} className="modal-backdrop" exit={{ opacity: 0 }} initial={{ opacity: 0 }}>
-          <motion.div animate={{ y: 0, opacity: 1 }} className="wallet-modal" exit={{ y: 18, opacity: 0 }} initial={{ y: 18, opacity: 0 }}>
+        <motion.div animate={{ opacity: 1 }} className="modal-backdrop" exit={{ opacity: 0 }} initial={{ opacity: 0 }} onClick={onClose}>
+          <motion.div
+            animate={{ y: 0, opacity: 1 }}
+            className="wallet-modal"
+            exit={{ y: 18, opacity: 0 }}
+            initial={{ y: 18, opacity: 0 }}
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-cinnabar">Wallet</p>
