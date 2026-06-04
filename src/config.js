@@ -4,7 +4,7 @@ export const APP_CONFIG = {
   chainId: Number(import.meta.env.VITE_CHAIN_ID || 31337),
   chainName: import.meta.env.VITE_CHAIN_NAME || "Ethereum Mainnet",
   explorerTxUrl: import.meta.env.VITE_EXPLORER_TX_URL || "",
-  marketplaceUrl: import.meta.env.VITE_MARKETPLACE_URL || "",
+  marketplaceUrl: "https://opensea.io/assets/ethereum/0x286d46be39dd415655710F4960DF67879e0Bd5dC",
   maxSupply: Number(import.meta.env.VITE_MAX_SUPPLY || 0)
 };
 

@@ -4,7 +4,6 @@ import {
   ChevronDown,
   ChevronUp,
   CheckCircle2,
-  CircleDollarSign,
   Copy,
   Coins,
   Dice5,
@@ -186,6 +185,7 @@ class AppShell extends Component {
                   {mint.isBusy ? <Loader2 className="animate-spin" size={20} /> : <PlugZap size={20} />}
                   {actionCopy[mint.primaryState]}
                 </button>
+                <MarketplaceLink className="opensea-button" label="Trade on OpenSea" />
                 <SystemNotices mint={mint} />
               </div>
             </div>
@@ -436,7 +436,7 @@ function TokenGallery({ tokens, tokenIds }) {
     <div className="flex flex-col h-full min-h-0 gap-3">
       <div className="flex items-center justify-between">
         <h2 className="flex items-center gap-2 text-xl font-black"><ScrollText size={19} />Minted Caligraphs</h2>
-        {APP_CONFIG.marketplaceUrl ? <a className="icon-link" href={APP_CONFIG.marketplaceUrl} rel="noreferrer" target="_blank"><CircleDollarSign size={16} />Market</a> : null}
+        <MarketplaceLink className="icon-link" label="OpenSea" />
       </div>
       {tokenIds.length === 0 ? (
         <div className="flex-1 empty-state">Your Caligraph previews will appear here after minting.</div>
@@ -447,6 +447,21 @@ function TokenGallery({ tokens, tokenIds }) {
       )}
     </div>
   );
+}
+
+function MarketplaceLink({ className, label }) {
+  if (!APP_CONFIG.marketplaceUrl) return null;
+  return (
+    <a className={className} href={APP_CONFIG.marketplaceUrl} rel="noreferrer" target="_blank">
+      <OpenSeaIcon />
+      <span>{label}</span>
+      <ExternalLink size={15} />
+    </a>
+  );
+}
+
+function OpenSeaIcon() {
+  return <img alt="" aria-hidden="true" className="opensea-logo" src="/opensea-white-logo.svg" />;
 }
 
 function TokenCard({ token }) {
